@@ -1,4 +1,8 @@
 .app-list-item {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: .25rem;
   font-size: 1.25rem;
 }
 
@@ -51,4 +55,9 @@
 
 .app-list-item.important .btn-star {
     color: #aeaeae;
+}
+
+.app-list-item-date {
+    margin: 0;
+    font-size: 0.8rem;
 }
