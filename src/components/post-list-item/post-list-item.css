@@ -1,7 +1,4 @@
 .app-list-item {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  background-color: #fff;
   border-radius: .25rem;
   font-size: 1.25rem;
 }
@@ -38,7 +35,8 @@
 
 .app-list-item-label {
   display: block;
-  line-height: 35px;
+  margin-left: 1rem;
+  line-height: 25px;
   cursor: pointer;
   user-select: none;
   transition: 0.5s all;
@@ -58,6 +56,16 @@
 }
 
 .app-list-item-date {
-    margin: 0;
+    margin: 1rem 0 0;
     font-size: 0.8rem;
+    color: #212529;
+}
+.app-list-item-date::before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 1px;
+    width: 250px;
+    background-color: #212529;
+
 }

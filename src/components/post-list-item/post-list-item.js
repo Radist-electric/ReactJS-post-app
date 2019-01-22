@@ -1,40 +1,80 @@
-import React from 'react';
+import React, {Component} from 'react';
+import './post-list-item.css';
 
+let changeNumber = (number) => {
+    if (number < 10) {
+        number = `0${number}`;
+    }
+    return number;
+}
 let currentDate = new Date(),
-    Year = currentDate.getFullYear(),
-    Month = currentDate.getMonth(),
-    Day = currentDate.getDate(),
-    Hour = currentDate.getHours(),
-    Minutes = currentDate.getMinutes(),
-    fMonth = '';
-    switch (Month)
+    year = currentDate.getFullYear(),
+    month = currentDate.getMonth(),
+    day = currentDate.getDate(),
+    hour = changeNumber(currentDate.getHours()),
+    minutes = changeNumber(currentDate.getMinutes()),
+    seconds = changeNumber(currentDate.getSeconds()),
+    setMonthName = '';
+    switch (month)
     {
-      case 0: fMonth="января"; break;
-      case 1: fMonth="февраля"; break;
-      case 2: fMonth="марта"; break;
-      case 3: fMonth="апреля"; break;
-      case 4: fMonth="мае"; break;
-      case 5: fMonth="июня"; break;
-      case 6: fMonth="июля"; break;
-      case 7: fMonth="августа"; break;
-      case 8: fMonth="сентября"; break;
-      case 9: fMonth="октября"; break;
-      case 10: fMonth="ноября"; break;
-      case 11: fMonth="декабря"; break;
+      case 0: setMonthName="января"; break;
+      case 1: setMonthName="февраля"; break;
+      case 2: setMonthName="марта"; break;
+      case 3: setMonthName="апреля"; break;
+      case 4: setMonthName="мае"; break;
+      case 5: setMonthName="июня"; break;
+      case 6: setMonthName="июля"; break;
+      case 7: setMonthName="августа"; break;
+      case 8: setMonthName="сентября"; break;
+      case 9: setMonthName="октября"; break;
+      case 10: setMonthName="ноября"; break;
+      case 11: setMonthName="декабря"; break;
       default:
     };
 
-const PostListItem = () => {
-    return (
-        <li className="app-list-item d-flex justify-content-between">
-            <span className="app-list-item-label">
-                Hello World!!!
-                <p className="app-list-item-date">Дата публикации: {Day}-{fMonth}-{Year} {Hour}:{Minutes}</p>
+export default class PostListItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            important: false,
+            like: false
+        };
+        this.onImportant = this.onImportant.bind(this);
+        this.onLike = this.onLike.bind(this);
+    }
+    onImportant() {
+        this.setState(({important}) => ({
+            important: !important
+        }))
+    }
+    onLike() {
+        this.setState(({like}) => ({
+            like: !like
+        }))
+    }
+    render() {
+        const {label} = this.props;
+        const {important, like} = this.state;
+        let classNames = 'app-list-item d-flex justify-content-between';
+        if (important) {
+            classNames +=' important'
+        }
+        if (like) {
+            classNames +=' like'
+        }
+        return (
+            <div className={classNames}>
+            <span
+                className="app-list-item-label"
+                onClick={this.onLike}>
+                {label}
+                <p className="app-list-item-date">Дата публикации: {day} {setMonthName} {year} {hour}:{minutes}:{seconds}</p>
             </span>
             <div className="d-flex justify-content-center align-items-center">
                 <button
                     type="button"
-                    className="btn-star btn-sm">
+                    className="btn-star btn-sm"
+                    onClick={this.onImportant}>
                     <i className="fa fa-star"></i>
                 </button>
                 <button
@@ -44,9 +84,9 @@ const PostListItem = () => {
                 </button>
                 <i className="fa fa-heart"></i>
             </div>
-        </li>
-    )
+        </div>
+        )
+    }
 }
 
-export default PostListItem;
 
