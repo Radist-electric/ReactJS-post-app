@@ -67,5 +67,9 @@
     height: 1px;
     width: 250px;
     background-color: #212529;
-
+}
+.app-list-item-id {
+    margin: 0;
+    font-size: 0.7rem;
+    line-height: 0.7rem;
 }

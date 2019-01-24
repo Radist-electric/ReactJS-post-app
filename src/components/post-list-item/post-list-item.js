@@ -53,7 +53,7 @@ export default class PostListItem extends Component {
         }))
     }
     render() {
-        const {label} = this.props;
+        const {label, id, onDelete} = this.props;
         const {important, like} = this.state;
         let classNames = 'app-list-item d-flex justify-content-between';
         if (important) {
@@ -69,6 +69,7 @@ export default class PostListItem extends Component {
                 onClick={this.onLike}>
                 {label}
                 <p className="app-list-item-date">Дата публикации: {day} {setMonthName} {year} {hour}:{minutes}:{seconds}</p>
+                <p className="app-list-item-id">id поста: {id}</p>
             </span>
             <div className="d-flex justify-content-center align-items-center">
                 <button
@@ -79,7 +80,8 @@ export default class PostListItem extends Component {
                 </button>
                 <button
                     type="button"
-                    className="btn-trash btn-sm">
+                    className="btn-trash btn-sm"
+                    onClick={onDelete}>
                     <i className="fa fa-trash-o"></i>
                 </button>
                 <i className="fa fa-heart"></i>
