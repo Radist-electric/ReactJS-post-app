@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './post-list-item.css';
 
 let changeNumber = (number) => {
@@ -7,14 +7,17 @@ let changeNumber = (number) => {
     }
     return number;
 }
-let currentDate = new Date(),
-    year = currentDate.getFullYear(),
-    month = currentDate.getMonth(),
-    day = currentDate.getDate(),
-    hour = changeNumber(currentDate.getHours()),
-    minutes = changeNumber(currentDate.getMinutes()),
-    seconds = changeNumber(currentDate.getSeconds()),
-    setMonthName = '';
+
+const PostListItem = ({label, important, like, id, time, onDelete, onToggleImportant, onToggleLiked}) => {
+    let currentDate = time,
+        year = currentDate.getFullYear(),
+        month = currentDate.getMonth(),
+        day = currentDate.getDate(),
+        hour = changeNumber(currentDate.getHours()),
+        minutes = changeNumber(currentDate.getMinutes()),
+        seconds = changeNumber(currentDate.getSeconds()),
+        setMonthName = '',
+        classNames = 'app-list-item d-flex justify-content-between';
     switch (month)
     {
       case 0: setMonthName="января"; break;
@@ -31,64 +34,39 @@ let currentDate = new Date(),
       case 11: setMonthName="декабря"; break;
       default:
     };
-
-export default class PostListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            important: false,
-            like: false
-        };
-        this.onImportant = this.onImportant.bind(this);
-        this.onLike = this.onLike.bind(this);
+    if (important) {
+        classNames +=' important'
     }
-    onImportant() {
-        this.setState(({important}) => ({
-            important: !important
-        }))
+    if (like) {
+        classNames +=' like'
     }
-    onLike() {
-        this.setState(({like}) => ({
-            like: !like
-        }))
-    }
-    render() {
-        const {label, id, onDelete} = this.props;
-        const {important, like} = this.state;
-        let classNames = 'app-list-item d-flex justify-content-between';
-        if (important) {
-            classNames +=' important'
-        }
-        if (like) {
-            classNames +=' like'
-        }
-        return (
-            <div className={classNames}>
-            <span
-                className="app-list-item-label"
-                onClick={this.onLike}>
-                {label}
-                <p className="app-list-item-date">Дата публикации: {day} {setMonthName} {year} {hour}:{minutes}:{seconds}</p>
-                <p className="app-list-item-id">id поста: {id}</p>
-            </span>
-            <div className="d-flex justify-content-center align-items-center">
-                <button
-                    type="button"
-                    className="btn-star btn-sm"
-                    onClick={this.onImportant}>
-                    <i className="fa fa-star"></i>
-                </button>
-                <button
-                    type="button"
-                    className="btn-trash btn-sm"
-                    onClick={onDelete}>
-                    <i className="fa fa-trash-o"></i>
-                </button>
-                <i className="fa fa-heart"></i>
-            </div>
+    return (
+        <div className={classNames}>
+        <span
+            className="app-list-item-label"
+            onClick={onToggleLiked}
+        >
+            {label}
+            <p className="app-list-item-date">Дата публикации: {day} {setMonthName} {year} {hour}:{minutes}:{seconds}</p>
+            <p className="app-list-item-id">id поста: {id}</p>
+        </span>
+        <div className="d-flex justify-content-center align-items-center">
+            <button
+                type="button"
+                className="btn-star btn-sm"
+                onClick={onToggleImportant}>
+                <i className="fa fa-star"></i>
+            </button>
+            <button
+                type="button"
+                className="btn-trash btn-sm"
+                onClick={onDelete}>
+                <i className="fa fa-trash-o"></i>
+            </button>
+            <i className="fa fa-heart"></i>
         </div>
-        )
-    }
+    </div>
+    )
 }
 
-
+export default PostListItem;
