@@ -9,7 +9,7 @@ const Header = styled.div`
     h1 {
         font-size: 26px;
         cursor: pointer;
-        color: ${props => props.colored ? 'blue' : 'black'}
+        color: ${props => props.colored ? 'blue' : 'black'};
         :hover {
             color: red;
         }
